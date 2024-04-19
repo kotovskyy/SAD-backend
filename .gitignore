@@ -5,4 +5,5 @@ __pycache__/
 
 Pipfile
 test.py
+Pipfile.lock
 
