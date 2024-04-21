@@ -48,8 +48,14 @@ ALTER ROLE username SET default_transaction_isolation TO 'read committed';
 ALTER ROLE username SET timezone TO 'UTC';
 ```
 
+Some useful functions for psql:
+- `\list` or `\l`: list all databases
+- `\c <db name>`: connect to a certain database
+- `\dt`: list all tables in the current database using your `search_path`
+- `\dt *.`: list all tables in the current database regardless your `search_path`
+
 Exit SQL prompt:
-```SQL
+```psql
 \q
 ```
 # 3. Django
@@ -96,8 +102,3 @@ DATABASES = {
     }
 }
 ```
-
-
-
-
-
