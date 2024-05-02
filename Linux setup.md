@@ -1,10 +1,20 @@
-# 1. Install PostgreSQL
-[Official docs](https://docs.djangoproject.com/en/5.0/ref/databases/#postgresql-notes)
+# 1. Installation of Python packages
 
-Install necessary module, so Django can communicate with PostgreSQL:
+All Python packages needed are listed in the `requirements.txt` file. The most 
+important ones are `Django` and `psycopg`. All requirements can be installed using 
+this command:
 ```Bash
-pip install psycopg
+python -m pip install -r requirements.txt
 ```
+
+In case if you would like to install anything manually (not recommended):
+```
+python -m pip install Django
+python -m pip install psycopg
+```
+
+# 2. Install PostgreSQL
+[Official docs](https://docs.djangoproject.com/en/5.0/ref/databases/#postgresql-notes)
 
 Then install the PostgreSQL:
 ```Bash
@@ -16,7 +26,7 @@ Start postgresql process:
 ```Bash
 sudo systemctl start postgresql.service
 ```
-# 2. Configure PostgreSQL
+# 3. Configure PostgreSQL
 Open **psql** CLI
 ```Bash
 sudo -u postgres psql
@@ -54,7 +64,7 @@ Exit SQL prompt:
 ```psql
 \q
 ```
-# 3. Django
+# 4. Django
 
 In the [[Settings]].py file edit the DATABASES:
 ```Python
