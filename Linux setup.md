@@ -1,13 +1,9 @@
 # 1. Install PostgreSQL
 [Official docs](https://docs.djangoproject.com/en/5.0/ref/databases/#postgresql-notes)
+
 Install necessary module, so Django can communicate with PostgreSQL:
 ```Bash
-pip install psycopg2
-```
-
-if u have some problems (eg. Failed building wheel for psycopg2), you can try:
-```Bash
-pip install psycopg2-binary
+pip install psycopg
 ```
 
 Then install the PostgreSQL:
