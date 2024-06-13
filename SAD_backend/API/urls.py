@@ -8,4 +8,6 @@ router.register(r'measurements', views.MeasurementViewSet, basename='measurement
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('register/', views.RegisterUser.as_view(), name='register'),
+    path('login/', views.LoginUser.as_view(), name='login'),    
 ]
