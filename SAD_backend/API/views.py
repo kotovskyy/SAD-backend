@@ -102,16 +102,16 @@ class MeasurementViewSet(viewsets.ModelViewSet):
         return Measurement.objects.filter(device__user=user)
 
 
-class Measurement_typeViewSet(viewsets.ModelViewSet):
+class Measurement_typeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Measurement_type.objects.all()
     serializer_class = Measurement_typeSerializer
 
 
-class SettingViewSet(viewsets.ModelViewSet):
+class SettingViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Setting.objects.all()
     serializer_class = SettingSerializer
 
 
-class Setting_typeViewSet(viewsets.ModelViewSet):
+class Setting_typeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Setting_type.objects.all()
     serializer_class = Setting_typeSerializer
