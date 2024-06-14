@@ -96,7 +96,7 @@ class MeasurementViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        device_id = self.request.query_params.get("device_id")
+        device_id = self.request.query_params.get("device")
         if device_id:
             return Measurement.objects.filter(device__user=user, device_id=device_id)
         return Measurement.objects.filter(device__user=user)
