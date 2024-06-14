@@ -57,12 +57,14 @@ class RegisterUser(APIView):
 
 class LoginUser(APIView):
     def post(self, request):
-        username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
 
-        if not username or not password:
-            return Response({'error': 'Please provide both username and password'}, status=status.HTTP_400_BAD_REQUEST)
+        if not email or not password:
+            return Response({'error': 'Please provide both email and password'}, status=status.HTTP_400_BAD_REQUEST)
 
+        username = User.objects.get(email=email).username
+        
         user = authenticate(request, username=username, password=password)
         if user is not None:
             token, _ = Token.objects.get_or_create(user=user)
