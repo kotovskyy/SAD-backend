@@ -83,6 +83,7 @@ class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
+        extra_kwargs = {"type": {"required": True}}
 
 
 class Device_typeSerializer(serializers.ModelSerializer):
@@ -95,6 +96,7 @@ class MeasurementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurement
         fields = "__all__"
+        extra_kwargs = {"type": {"required": True}}
 
 
 class Measurement_typeSerializer(serializers.ModelSerializer):
@@ -107,6 +109,7 @@ class SettingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting
         fields = "__all__"
+        extra_kwargs = {"type": {"required": True}}
 
 
 class Setting_typeSerializer(serializers.ModelSerializer):
