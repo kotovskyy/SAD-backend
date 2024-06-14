@@ -36,8 +36,6 @@ class RegisterSerializer(serializers.ModelSerializer):
             "email",
             "password",
             "password2",
-            "first_name",
-            "last_name",
         )
 
     def validate(self, attrs):
@@ -51,8 +49,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User(
             username=validated_data["username"],
             email=validated_data["email"],
-            first_name=validated_data["first_name"],
-            last_name=validated_data["last_name"],
         )
         user.set_password(validated_data["password"])
         user.save()

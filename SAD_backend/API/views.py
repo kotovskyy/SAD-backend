@@ -90,10 +90,13 @@ class Device_typeViewSet(viewsets.ModelViewSet):
 
 
 class MeasurementViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-
     queryset = Measurement.objects.all()
     serializer_class = MeasurementSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Measurement.objects.filter(device__user=user)
 
 
 class Measurement_typeViewSet(viewsets.ModelViewSet):
