@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import viewsets
+from API.permissions import IsOwnerOrReadOnly
+from front_communication.models import User
 from device_communication.models import (
     Device,
     Measurement,
@@ -9,13 +16,6 @@ from device_communication.models import (
     Setting,
     Measurement_type,
 )
-from front_communication.models import User
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny
-from rest_framework import status
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
 from API.serializers import (
     DeviceSerializer,
     MeasurementSerializer,
@@ -40,6 +40,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def get_permissions(self):
+        if self.action in ['retrieve', 'update', 'partial_update', 'destroy']:
+            return [IsAuthenticated(), IsOwnerOrReadOnly()]
+        elif self.action in ['register', 'login']:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+    
+    def get_queryset(self):
+        user = self.request.user
+        return User.objects.filter(id=user.id)
+
+
     @action(detail=False, methods=["post"], permission_classes=[AllowAny])
     def register(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -62,10 +74,14 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class DeviceViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]  # Ensure user is authenticated and owns the device
+
+    def get_queryset(self):
+        user = self.request.user
+        return Device.objects.filter(user=user)
+
 
 
 class Device_typeViewSet(viewsets.ModelViewSet):
