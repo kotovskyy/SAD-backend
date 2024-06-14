@@ -47,7 +47,7 @@ class Setting(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
-    value = models.IntegerField()
+    value = models.FloatField()
 
     class Meta:
         db_table = 'setting'
@@ -74,7 +74,7 @@ class Measurement(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
-    value = models.IntegerField()
+    value = models.FloatField()
 
     class Meta:
         db_table = 'measurement'
