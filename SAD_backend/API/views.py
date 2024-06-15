@@ -74,13 +74,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class DeviceViewSet(viewsets.ModelViewSet):
-    queryset = Device.objects.all()
     serializer_class = DeviceSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]  # Ensure user is authenticated and owns the device
 
     def get_queryset(self):
         user = self.request.user
         return Device.objects.filter(user=user)
+    
+    def perform_create(self, serializer):
+        serializer.save()
 
 
 

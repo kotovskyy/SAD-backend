@@ -83,7 +83,13 @@ class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = "__all__"
-        extra_kwargs = {"type": {"required": True}}
+        extra_kwargs = {"type": {"required": True}, "user": {"required": False}}
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        print(user)
+        device = Device.objects.create(user=user, **validated_data)
+        return device
 
 
 class Device_typeSerializer(serializers.ModelSerializer):
