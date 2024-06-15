@@ -81,8 +81,6 @@ class DeviceViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Device.objects.filter(user=user)
     
-    def perform_create(self, serializer):
-        serializer.save()
 
 
 
@@ -112,6 +110,16 @@ class Measurement_typeViewSet(viewsets.ReadOnlyModelViewSet):
 class SettingViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Setting.objects.all()
     serializer_class = SettingSerializer
+
+    def list(self, request):
+        user = request.user
+        device_id = request.query_params.get("device")
+        if device_id:
+            queryset = Setting.objects.filter(device__user=user, device=device_id)
+        else:
+            queryset = Setting.objects.filter(device__user=user)
+        serializer = SettingSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class Setting_typeViewSet(viewsets.ReadOnlyModelViewSet):

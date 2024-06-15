@@ -87,7 +87,6 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = self.context["request"].user
-        print(user)
         device = Device.objects.create(user=user, **validated_data)
         return device
 
