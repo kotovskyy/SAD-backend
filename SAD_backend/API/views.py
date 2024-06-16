@@ -81,10 +81,6 @@ class DeviceViewSet(viewsets.ModelViewSet):
         user = self.request.user
         return Device.objects.filter(user=user)
     
-    # def destroy(self, request, *args, **kwargs):
-    #     return super().destroy(request, *args, **kwargs)
-    
-
 
 
 class Device_typeViewSet(viewsets.ModelViewSet):

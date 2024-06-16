@@ -84,10 +84,25 @@ class DeviceSerializer(serializers.ModelSerializer):
         model = Device
         fields = "__all__"
         extra_kwargs = {"type": {"required": True}, "user": {"required": False}}
+    
+    def __create_settings(self, device):
+        device_type = device.type
+
+        if device_type.device_type == 1:
+            setting_types = Setting_type.objects.filter(id__in=[1, 2, 3])
 
     def create(self, validated_data):
         user = self.context["request"].user
         device = Device.objects.create(user=user, **validated_data)
+
+        type1 = Setting_type.objects.get(id=1)
+        type2 = Setting_type.objects.get(id=2)
+        type3 = Setting_type.objects.get(id=3)
+
+
+        setting1 = Setting.objects.create(device=device, type=type1, value=19.0)
+        setting2 = Setting.objects.create(device=device, type=type2, value=700.0)
+        setting3 = Setting.objects.create(device=device, type=type3, value=2200.0)
         return device
 
 
