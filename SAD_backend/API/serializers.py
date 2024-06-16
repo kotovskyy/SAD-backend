@@ -89,8 +89,8 @@ class DeviceSerializer(serializers.ModelSerializer):
         default_settings = [
             #Sleep Assistant Device
             {"Temperature": 19.0,
-            "Sleep time": 700.0,
-            "Wake time": 2200.0,
+            "Sleep time": 2300.0,
+            "Wake time": 700.0,
             "Humidity": 50.0
             },
 
