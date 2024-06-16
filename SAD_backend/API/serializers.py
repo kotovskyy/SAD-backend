@@ -117,18 +117,24 @@ class Device_typeSerializer(serializers.ModelSerializer):
         model = Device_type
         fields = "__all__"
 
-
-class MeasurementSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Measurement
-        fields = "__all__"
-        extra_kwargs = {"type": {"required": True}}
-
-
 class Measurement_typeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurement_type
         fields = "__all__"
+
+class MeasurementSerializer(serializers.ModelSerializer):
+    type_name = serializers.CharField(source='type.name', read_only=True)
+    unit = serializers.CharField(source='type.unit', read_only=True)
+
+    class Meta:
+        model = Measurement
+        fields = ['id', 'type', 'type_name', 'unit', 'value', 'device', 'timestamp']
+        extra_kwargs = {"type": {"required": True}}
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['type'] = instance.type.id
+        return representation
 
 
 class Setting_typeSerializer(serializers.ModelSerializer):
