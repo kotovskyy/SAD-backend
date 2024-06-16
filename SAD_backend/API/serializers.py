@@ -131,14 +131,22 @@ class Measurement_typeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SettingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Setting
-        fields = "__all__"
-        extra_kwargs = {"type": {"required": True}}
-
-
 class Setting_typeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting_type
         fields = "__all__"
+
+class SettingSerializer(serializers.ModelSerializer):
+    type_name = serializers.CharField(source='type.name', read_only=True)
+    unit = serializers.CharField(source='type.unit', read_only=True)
+
+    class Meta:
+        model = Setting
+        fields = ['id', 'type', 'type_name', 'unit', 'value', 'device']
+        extra_kwargs = {"type": {"required": True}}
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['type'] = instance.type.id
+        return representation
+
