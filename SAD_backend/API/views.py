@@ -110,7 +110,8 @@ class Measurement_typeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = Measurement_typeSerializer
 
 
-class SettingViewSet(viewsets.ReadOnlyModelViewSet):
+class SettingViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Setting.objects.all()
     serializer_class = SettingSerializer
 
