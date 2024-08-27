@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/5d3fd739-3ae6-47b9-9c70-bb7e29b44202/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/sad-app",
+    "appService.deploySubpath": "."
+}
